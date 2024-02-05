@@ -4,6 +4,7 @@ import exception.NoSuchLetterException;
 import org.junit.jupiter.api.Test;
 import pages.InboxPage;
 import pages.LoginPage;
+import utils.Helpers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,10 +15,9 @@ public class MailTest extends TestBase {
 
     @Test
     public void test() throws NoSuchLetterException {
-        loginPage.openPage("");
-        loginPage.clickMailBoxButton("Войти");
-        loginPage.authByFrameFieldsFilling
-                ("Войти в аккаунт",
+        loginPage.openPage("")
+                .clickMailBoxButton("Войти")
+                .authByFrameFieldsFilling("Войти в аккаунт",
                         testData.userEmail,
                         testData.userPassword);
         if (!inboxPage.getLetters().isEmpty()) {
@@ -26,5 +26,8 @@ public class MailTest extends TestBase {
             assertEquals(testData.letterDescription, inboxPage.getDescriptionText());
             assertEquals(testData.letterSubject, inboxPage.getLetterSubject());
         } else throw new NoSuchLetterException("Отсутствуют входящие письма");
+        inboxPage.clickAvatarImage()
+                .clickExitButton();
+        Helpers.verifyPageTitle("Mail.ru: почта, поиск, новости, прогноз погоды, гороскоп, программа передач");
     }
 }
