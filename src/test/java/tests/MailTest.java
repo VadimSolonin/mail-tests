@@ -25,9 +25,9 @@ public class MailTest extends TestBase {
             assertEquals(testData.sender, inboxPage.getAuthorName());
             assertEquals(testData.letterDescription, inboxPage.getDescriptionText());
             assertEquals(testData.letterSubject, inboxPage.getLetterSubject());
+            inboxPage.clickAvatarImage()
+                    .clickExitButton();
+            Helpers.verifyPageTitle("Mail.ru: почта, поиск, новости, прогноз погоды, гороскоп, программа передач");
         } else throw new NoSuchLetterException("Отсутствуют входящие письма");
-        inboxPage.clickAvatarImage()
-                .clickExitButton();
-        Helpers.verifyPageTitle("Mail.ru: почта, поиск, новости, прогноз погоды, гороскоп, программа передач");
     }
 }
